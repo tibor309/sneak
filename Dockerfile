@@ -1,9 +1,14 @@
 FROM node:alpine
-WORKDIR discord-music-bot
+
+# Install the build essentials (gcc, g++, ffmpeg, python3)
+RUN apk add --update alpine-sdk python2 python3
+RUN alias python="python3"
 RUN apk add ffmpeg
 
+WORKDIR discord-music-bot
 COPY . .
-RUN npm install
 
+# Install dependencies and run
+RUN yarn
 CMD yarn start
 
